@@ -1,9 +1,36 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+
+//nota: agregue 
+import {
+  BrowserRouter,
+  Route,
+  Routes
+} from 'react-router-dom';
+import {AuthProvider} from './context/AuthContext';
+import LoginPage from './pages/login/LoginPage';
+
+
+
 import './App.css'
 
+
+//nota: incorporo function App para el login y lo que es el menu tiene que estar en fucton AppContent
 function App() {
+  return (
+    <AuthProvider>
+       <BrowserRouter>
+       <AppContent/>
+       </BrowserRouter>
+    </AuthProvider>
+   
+  )
+};
+
+//nota: agregar ruta  /login (<Route path = '/login' elemnet = {<LoginPage />} /> )
+
+function AppContent(){
   const [count, setCount] = useState(0)
 
   return (
