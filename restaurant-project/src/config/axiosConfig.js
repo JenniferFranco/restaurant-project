@@ -26,8 +26,9 @@ axiosIntance.interceptors.response.use (
     (error) => {
         if (error.response && error.response.status === 401) {
             console.error ('Token inváldo o expirado');
-            localStorage.removeItem ('token');
-            window.location.href = '/login';
+            //nota: revisar esta parte 
+            // localStorage.removeItem ('token');
+            // window.location.href = '/login';
         }
         return Promise.reject (error);
     }

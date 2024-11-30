@@ -1,13 +1,19 @@
 import { useState } from "react";
+import {useLogin} from  '../..hooks/auth/useLogin'
+
+import './LoginPage.css'
 
 const LoginPage = () => {
 
     const [email, setEmail] = useState (null);
     const [password, setPassword] = useState ('');
 
+    const {LoginError, loginFunction, loginLoading } = useLogin();
+
     const handleClickLogin = () => {
-        console.log(email)
-        console.log(password)
+        if (email && password) {
+            loginFunction ({email, password})
+        }
     };
 
 
@@ -27,7 +33,14 @@ const LoginPage = () => {
                     value={password} 
                     onChange={(event) => setPassword(event.target.value)}  
                     />
-                    <button onClick={handleClickLogin} >Iniciar sesión</button>
+                    <button 
+                    onClick={handleClickLogin} 
+                    disabled= {!email || !password} >
+                        {loginLoading ? 'Cargando...' : 'Iniciar sesión'}
+                        </button>
+                    {LoginError && (
+                        <p>Ocurrio un error al iniciar sesión. </p>
+                    )}
             </div>
         </div>
     );

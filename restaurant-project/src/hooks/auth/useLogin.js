@@ -21,9 +21,15 @@ export const useLogin = () => {
             });
             const response =  await axiosIntance.post(urlLogin, {email, password});
             if (response.status === 200) {
-                const decoded = jwtDecode (response.data);
-                login (response.data, decoded.role);
-            } else {
+                const {token} = response.data;
+                const decoded = jwtDecode (token);
+                login (token, decoded?.role);
+                setLoginState({
+                    error: null,
+                    loading: false,
+                   });
+            }
+            else {
                 setLoginState({
                  error: 'Error',
                  loading: false,
